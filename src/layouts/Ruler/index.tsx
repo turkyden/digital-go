@@ -24,7 +24,7 @@ export default function ReactRuler() {
     <>
       <div
         id="stage"
-        className="relative w-full h-full"
+        className="absolute top-0 left-0 w-full h-full"
         style={{}}
         ref={ref}
       ></div>
