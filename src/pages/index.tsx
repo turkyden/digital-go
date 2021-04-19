@@ -16,7 +16,11 @@ export default function IndexPage() {
             <span className="mr-5 hover:text-white">产品定价</span>
             <span className="mr-5 hover:text-white">产品学院</span>
           </nav>
-          <button className="inline-flex items-center bg-gray-800 border-0 py-1 px-3 focus:outline-none hover:bg-gray-700 rounded text-base mt-4 md:mt-0">
+          <a
+            href="https://github.com/Turkyden"
+            target="_blank"
+            className="inline-flex items-center bg-gray-800 border-0 py-1 px-3 focus:outline-none text-gray-400 hover:text-gray-200 hover:bg-gray-700 rounded text-base mt-4 md:mt-0"
+          >
             联系我们
             <svg
               fill="none"
@@ -29,7 +33,7 @@ export default function IndexPage() {
             >
               <path d="M5 12h14M12 5l7 7-7 7"></path>
             </svg>
-          </button>
+          </a>
         </div>
       </header>
 
