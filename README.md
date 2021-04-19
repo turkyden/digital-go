@@ -18,4 +18,5 @@ $ yarn start
 
 ## Refference
 
--[阿里云·dataV](https://www.aliyun.com/activity/intelligent/datav-showcase?spm=a2c0j.14082271.J_6667440000.1.765e6ab4Ka7Fko&version=2)
+- [阿里云·dataV](https://www.aliyun.com/activity/intelligent/datav-showcase?spm=a2c0j.14082271.J_6667440000.1.765e6ab4Ka7Fko&version=2)
+- [v6-dooring](http://v6.dooring.cn/beta/editor)

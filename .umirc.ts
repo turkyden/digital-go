@@ -7,6 +7,9 @@ export default defineConfig({
   nodeModulesTransform: {
     type: 'none',
   },
-  routes: [{ path: '/', component: '@/pages/index' }],
+  routes: [
+    { exact: true, path: '/', component: '@/pages/index' },
+    { exact: true, path: '/editor', component: '@/pages/editor' },
+  ],
   fastRefresh: {},
 });
