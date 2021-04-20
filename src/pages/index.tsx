@@ -10,7 +10,7 @@ export default function IndexPage() {
             <span className="text-2xl">☄️ </span>
             <span className="ml-3 text-xl">Digital Go</span>
           </a>
-          <nav className="md:ml-auto flex flex-wrap items-center text-base justify-center">
+          <nav className="md:ml-auto flex flex-wrap items-center text-sm justify-center">
             <span className="mr-5 hover:text-white">首页</span>
             <span className="mr-5 hover:text-white">功能亮点</span>
             <span className="mr-5 hover:text-white">产品定价</span>
@@ -19,7 +19,7 @@ export default function IndexPage() {
           <a
             href="https://github.com/Turkyden"
             target="_blank"
-            className="inline-flex items-center bg-gray-800 border-0 py-1 px-3 focus:outline-none text-gray-400 hover:text-gray-200 hover:bg-gray-700 rounded text-base mt-4 md:mt-0"
+            className="inline-flex items-center bg-gray-800 border-0 py-1 px-3 focus:outline-none text-gray-400 hover:text-gray-200 hover:bg-gray-700 rounded text-sm mt-4 md:mt-0"
           >
             联系我们
             <svg
@@ -40,25 +40,25 @@ export default function IndexPage() {
       <section className="text-gray-400 bg-gray-900 body-font">
         <div className="container mx-auto flex px-5 py-24 md:flex-row flex-col items-center">
           <div className="lg:flex-grow md:w-1/2 lg:pr-24 md:pr-16 flex flex-col md:items-start md:text-left mb-16 md:mb-0 items-center text-center">
-            <h1 className="title-font sm:text-4xl text-3xl mb-4 font-medium text-white">
-              数字化大屏
+            <h1 className="title-font sm:text-5xl text-3xl mb-4 font-medium text-white">
+              数字化大屏 &
               <br className="hidden lg:inline-block" />
-              可视化解决方案
+              低代码搭建解决方案
             </h1>
-            <p className="mb-8 leading-relaxed">
-              一款上手简单开箱即用的可视化看板编辑器
+            <p className="mb-8 text-xl leading-relaxed">
+              一款上手简单、所见即所得的 LowCode 数据可视化大屏编辑器。
             </p>
             <div className="flex justify-center">
               <a
                 href="/editor"
-                className="inline-flex text-white bg-blue-500 border-0 py-2 px-6 focus:outline-none hover:bg-blue-600 hover:text-white rounded text-lg"
+                className="inline-flex text-white bg-blue-500 border-0 py-2 px-6 focus:outline-none hover:bg-blue-600 hover:text-white rounded-sm text-lg"
               >
                 马上体验
               </a>
               <a
                 href="https://github.com/Turkyden/digital-go"
                 target="_blank"
-                className="ml-4 inline-flex text-gray-400 bg-gray-800 border-0 py-2 px-6 focus:outline-none hover:bg-gray-700 hover:text-white rounded text-lg flex justify-between items-center"
+                className="ml-4 inline-flex text-gray-400 bg-gray-800 border-0 py-2 px-6 focus:outline-none hover:bg-gray-700 hover:text-white rounded-sm text-lg flex justify-between items-center"
               >
                 <span className="pr-2">私有化部署</span>
                 <GithubOutlined />
