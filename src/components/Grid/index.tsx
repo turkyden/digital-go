@@ -10,10 +10,11 @@ export default class Grid extends React.PureComponent {
   static defaultProps = {
     className: 'layout',
     items: 20,
-    rowHeight: 30,
+    rowHeight: 10,
     onLayoutChange: function () {},
-    cols: 12,
+    cols: 24,
     transformScale: 1,
+    isDroppable: true,
   };
 
   constructor(props) {
@@ -51,15 +52,28 @@ export default class Grid extends React.PureComponent {
     this.props.onLayoutChange(layout);
   }
 
+  onDrop = (layout, layoutItem, _event) => {
+    alert(
+      `Dropped element props:\n${JSON.stringify(
+        layoutItem,
+        ['x', 'y', 'w', 'h'],
+        2,
+      )}`,
+    );
+  };
+
   render() {
     return (
-      <ReactGridLayout
-        layout={this.state.layout}
-        onLayoutChange={this.onLayoutChange}
-        {...this.props}
-      >
-        {this.generateDOM()}
-      </ReactGridLayout>
+      <>
+        <ReactGridLayout
+          layout={this.state.layout}
+          onLayoutChange={this.onLayoutChange}
+          onDrop={this.onDrop}
+          {...this.props}
+        >
+          {this.generateDOM()}
+        </ReactGridLayout>
+      </>
     );
   }
 }

@@ -29,9 +29,9 @@
     "@umijs/preset-react": "1.x",
     "antd": "^4.15.1",
     "lodash": "^4.17.21",
-    "react-fit-to-viewport": "^0.1.1",
     "react-grid-layout": "^1.2.4",
-    "react-use-gesture": "^9.1.3",
+    "react-hotkeys-hook": "^3.3.0",
+    "react-moveable": "^0.27.6",
     "ruler.js": "^1.0.1",
     "umi": "^3.4.8"
   },

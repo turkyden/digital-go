@@ -1,17 +1,16 @@
 import { useEffect, useRef } from 'react';
-import ruler from './ruler';
+import Ruler from './ruler';
 import './ruler.css';
 
 export default function ReactRuler() {
   const ref = useRef(null);
 
   useEffect(() => {
-    const myRuler = new ruler({
+    const myRuler = new Ruler({
       container: ref.current, // reference to DOM element to apply rulers on
       rulerHeight: 15, // thickness of ruler
       fontFamily: 'arial', // font for points
       fontSize: '7px',
-      strokeStyle: 'black',
       lineWidth: 1,
       enableMouseTracking: true,
       enableToolTip: true,

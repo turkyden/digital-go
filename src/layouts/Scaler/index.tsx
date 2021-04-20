@@ -1,5 +1,7 @@
-import { useSpring, animated } from '@react-spring/web';
-import { useDrag } from 'react-use-gesture';
+import { useEffect } from 'react';
+import { useHotkeys } from 'react-hotkeys-hook';
+import Draggable from 'react-draggable';
+import { Popover } from 'antd';
 import {
   PlusOutlined,
   MinusOutlined,
@@ -16,26 +18,12 @@ export default function Scaler({
   onZoomDown: () => void;
   onReset: () => void;
 }) {
-  const [{ x, y }, api] = useSpring(() => ({ x: 0, y: 0 }));
-  const bind = useDrag(
-    ({ down, offset: [ox, oy] }) =>
-      api.start({ x: ox, y: oy, immediate: down }),
-    {
-      bounds: { left: -1200, right: 60, top: -600, bottom: 60 },
-      rubberband: true,
-    },
-  );
-
   return (
-    <>
-      <animated.div
-        className="absolute bottom-24 right-24 shadow-lg rounded flex bg-gray-800"
-        style={{ x, y }}
-      >
+    <Draggable>
+      <div className="absolute bottom-24 right-24 shadow-lg rounded flex bg-gray-800">
         <div
           className="px-2 py-2 select-none flex flex-col justify-center items-center"
           style={{ cursor: 'grab' }}
-          {...bind()}
         >
           <svg
             className="octicon octicon-grabber"
@@ -62,9 +50,113 @@ export default function Scaler({
           <ReloadOutlined onClick={onReset} />
         </div>
         <div className="px-4 py-2 hover:text-blue-500">
-          <InsertRowBelowOutlined />
+          <Hotkeys />
         </div>
-      </animated.div>
-    </>
+      </div>
+    </Draggable>
   );
+}
+
+function Hotkeys() {
+  useHotkeys('space', () => console.log('space'));
+  //const isPressed = useIsHotkeyPressed();
+
+  // remove the browser scale on wheel
+  useEffect(() => {
+    document.addEventListener(
+      'keydown',
+      function (event) {
+        if (
+          (event.ctrlKey === true || event.metaKey === true) &&
+          (event.which === 61 ||
+            event.which === 107 ||
+            event.which === 173 ||
+            event.which === 109 ||
+            event.which === 187 ||
+            event.which === 189)
+        ) {
+          event.preventDefault();
+        }
+      },
+      false,
+    );
+    // Chrome IE 360
+    window.addEventListener(
+      'mousewheel',
+      (event: any) => {
+        if (event.ctrlKey === true || event.metaKey) {
+          event.preventDefault();
+        }
+      },
+      { passive: false },
+    );
+
+    //firefox
+    window.addEventListener(
+      'DOMMouseScroll',
+      (event: any) => {
+        if (event.ctrlKey === true || event.metaKey) {
+          event.preventDefault();
+        }
+      },
+      { passive: false },
+    );
+  }, []);
+
+  const content = (
+    <div className="text-gray-400">
+      <div className="flex justify-between items-center">
+        <p>
+          <code className="border border-solid border-gray-600 px-2 rounded-sm">
+            ctrl
+          </code>{' '}
+          +{' '}
+          <code className="border border-solid border-gray-600 px-2 rounded-sm">
+            space
+          </code>
+        </p>
+        <p className="pl-4 text-xs">Drag Canvas</p>
+      </div>
+      <div className="flex justify-between items-center">
+        <p>
+          <code className="border border-solid border-gray-600 px-2 rounded-sm">
+            ctrl
+          </code>{' '}
+          +{' '}
+          <code className="border border-solid border-gray-600 px-2 rounded-sm">
+            space
+          </code>
+        </p>
+        <p className="pl-4 text-xs">Drag Canvas</p>
+      </div>
+      <div className="flex justify-between items-center">
+        <p>
+          <code className="border border-solid border-gray-600 px-2 rounded-sm">
+            ctrl
+          </code>{' '}
+          +{' '}
+          <code className="border border-solid border-gray-600 px-2 rounded-sm">
+            space
+          </code>
+        </p>
+        <p className="pl-4 text-xs">Drag Canvas</p>
+      </div>
+    </div>
+  );
+
+  return (
+    <Popover title={undefined} content={content}>
+      <InsertRowBelowOutlined />
+    </Popover>
+  );
+
+  // return (
+  //   <>
+  //     {
+  //       isPressed('space')
+  //       ? <InsertRowBelowOutlined />
+  //       : <p>xx</p>
+  //     }
+  //   </>
+  // )
 }

@@ -8,7 +8,7 @@ export default function () {
     const { id, name } = Thumbnails[item];
 
     return (
-      <div className="w-full p-2" key={id}>
+      <div className="w-full p-2" key={id} draggable={true} unselectable="on">
         <div className="rounded-md hover:bg-green-500 hover:bg-opacity-10">
           <div className="px-2 py-1">
             <span className="text-xs text-center text-gray-400 ">{name}</span>
