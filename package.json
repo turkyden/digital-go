@@ -27,6 +27,7 @@
     "@types/lodash": "^4.14.168",
     "@types/react-grid-layout": "^1.1.1",
     "@umijs/preset-react": "1.x",
+    "ahooks": "^2.10.1",
     "antd": "^4.15.1",
     "lodash": "^4.17.21",
     "react-grid-layout": "^1.2.4",
