@@ -1,5 +1,5 @@
 import { useState, useRef } from 'react';
-import { Layout, Radio } from 'antd';
+import { Layout, Radio, Drawer, Tooltip } from 'antd';
 import {
   RollbackOutlined,
   CloudDownloadOutlined,
@@ -13,8 +13,8 @@ import {
   PicCenterOutlined,
   EnvironmentOutlined,
 } from '@ant-design/icons';
+import { Resizable, ResizableBox } from 'react-resizable';
 import Draggable from 'react-draggable';
-import Moveable from 'react-moveable';
 import { ThumbnailChart } from '@/components/Thumbnail/index';
 
 import Grid from '@/components/Grid';
@@ -41,14 +41,19 @@ export default function EditorPage() {
     event.deltaY > 0 ? onZoomDown() : onZoomUp();
   };
 
-  // resize canvas
-  const [translate, setTranslate] = useState([0, 0]);
-  const targetRef = useRef<HTMLDivElement>(null);
-  const moveableRef = useRef<Moveable>(null);
-
   // collapse siderMenu
   const onCollapse = () => setCollapsed(!collapsed);
 
+  // source panel visible
+  const [visible, setVisible] = useState(false);
+
+  const [width, setWidth] = useState(1200);
+  const [height, setHeight] = useState(600);
+
+  const onResize = (event, { element, size, handle }) => {
+    setWidth(size.width);
+    setHeight(size.height);
+  };
   return (
     <Layout className="h-screen">
       <Sider
@@ -77,7 +82,7 @@ export default function EditorPage() {
           </div>
           {!collapsed && (
             <div
-              className="overflow-auto"
+              className="overflow-auto bg-gray-400 bg-opacity-5"
               style={{ height: window.innerHeight - 112 }}
             >
               <ThumbnailChart />
@@ -90,8 +95,6 @@ export default function EditorPage() {
         <Header className="flex justify-between items-center">
           <div className="flex justify-between w-24 text-lg">
             <PicRightOutlined className="cursor-pointer text-blue-500 hover:text-blue-500" />
-            <PicCenterOutlined className="cursor-pointer hover:text-blue-500" />
-            <PicLeftOutlined className="cursor-pointer hover:text-blue-500" />
           </div>
           <div className="flex h-full justify-center items-center">
             <Radio.Group
@@ -104,63 +107,52 @@ export default function EditorPage() {
             </Radio.Group>
           </div>
           <div className="flex justify-between w-48 text-lg">
-            <RollbackOutlined className="cursor-pointer hover:text-blue-500" />
-            <EyeOutlined className="cursor-pointer hover:text-blue-500" />
-            <CloudDownloadOutlined className="cursor-pointer hover:text-blue-500" />
-            <SendOutlined className="cursor-pointer hover:text-blue-500" />
+            <Tooltip title="上一步" placement="bottom">
+              <RollbackOutlined className="cursor-pointer hover:text-blue-500" />
+            </Tooltip>
+            <Tooltip title="预览" placement="bottom">
+              <EyeOutlined className="cursor-pointer hover:text-blue-500" />
+            </Tooltip>
+            <Tooltip title="导出" placement="bottom">
+              <CloudDownloadOutlined className="cursor-pointer hover:text-blue-500" />
+            </Tooltip>
+            <Tooltip title="发布" placement="bottom">
+              <SendOutlined className="cursor-pointer hover:text-blue-500" />
+            </Tooltip>
           </div>
         </Header>
         {/* <div>标尺</div> */}
-        <Content className="relative">
+        <Content className="relative overflow-hidden">
           <ReactRuler />
           <div
-            className="absolute top-0 left-0 w-full h-full overflow-auto | handle"
+            className="relative top-0 left-0 w-full h-full overflow-auto | handle"
             onWheel={onWheel}
           >
             <Draggable scale={scale / 100} handle=".handle">
               <div className="absolute top-12 left-12">
-                <div
-                  ref={targetRef}
-                  className="border border-solid border-gray-200 border-opacity-25"
-                  style={{
-                    backgroundImage:
-                      'url(https://digital.e-cology.com.cn/cloudstore/release/ca1c4c441fe24c1c97a54b8ff9257cd2/resources/bg.png)',
-                    backgroundSize: 'cover',
-                    backgroundRepeat: 'no-repeat',
-                    width: 1920,
-                    height: 1200,
-                    transform: `scale(${scale / 100})`,
-                  }}
-                >
+                <Resizable height={height} width={width} onResize={onResize}>
                   <div
-                    className="relative text-sm cursor-move | handle"
-                    style={{ top: '-1.75rem' }}
+                    className="border border-solid border-gray-200 border-opacity-25 hover:border-blue-500"
+                    style={{
+                      backgroundImage:
+                        'url(https://digital.e-cology.com.cn/cloudstore/release/ca1c4c441fe24c1c97a54b8ff9257cd2/resources/bg.png)',
+                      backgroundSize: 'cover',
+                      backgroundRepeat: 'no-repeat',
+                      width: width,
+                      height: height,
+                      transform: `scale(${scale / 100})`,
+                    }}
                   >
-                    同济大学图书馆数字大屏
+                    <div
+                      className="relative text-sm cursor-move | handle"
+                      style={{ top: '-1.75rem' }}
+                      onClick={() => setVisible(true)}
+                    >
+                      同济大学图书馆数字大屏
+                    </div>
+                    <Grid transformScale={scale / 100} />
                   </div>
-                  <Grid transformScale={scale / 100} />
-                </div>
-                {/* <Moveable
-                  ref={moveableRef}
-                  target={targetRef}
-                  resizable={false}
-                  throttleResize={10}
-                  onResizeStart={e => {
-                    e.dragStart && e.dragStart.set(translate);
-                  }}
-                  onResize={e => {
-                    const beforeTranslate = e.drag.beforeTranslate;
-                    e.target.style.width = `${e.width}px`;
-                    e.target.style.height = `${e.height}px`;
-                    e.target.style.transform = `translate(${beforeTranslate[0]}px, ${beforeTranslate[1]}px)`;
-                  }}
-                  onResizeEnd={e => {
-                    const lastEvent = e.lastEvent;
-                    if (lastEvent) {
-                      setTranslate(lastEvent.drag.beforeTranslate);
-                    }
-                  }}
-                /> */}
+                </Resizable>
               </div>
             </Draggable>
           </div>
@@ -169,6 +161,39 @@ export default function EditorPage() {
             onZoomDown={onZoomDown}
             onReset={onReset}
           />
+          <Drawer
+            title="配置项"
+            placement="right"
+            key="right"
+            className="absolute"
+            style={{ position: 'absolute' }}
+            closable={true}
+            onClose={() => setVisible(false)}
+            visible={visible}
+            getContainer={false}
+          >
+            <ol>
+              <li>常用配置</li>
+              <li>全部配置</li>
+            </ol>
+          </Drawer>
+          <Drawer
+            title="数据源"
+            placement="bottom"
+            key="bottom"
+            className="absolute"
+            style={{ position: 'absolute' }}
+            closable={true}
+            onClose={() => setVisible(false)}
+            visible={visible}
+            getContainer={false}
+          >
+            <ol>
+              <li>样例数据</li>
+              <li>本地数据，支持 .csx、.excel、.json 格式</li>
+              <li>实时数据，serverless 云函数</li>
+            </ol>
+          </Drawer>
         </Content>
       </Layout>
     </Layout>

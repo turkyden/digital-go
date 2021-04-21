@@ -56,7 +56,7 @@ export default function IndexPage() {
                 马上体验
               </a>
               <a
-                href="https://github.com/Turkyden/digital-go"
+                href="./login"
                 target="_blank"
                 className="ml-4 inline-flex text-gray-400 bg-gray-800 border-0 py-2 px-6 focus:outline-none hover:bg-gray-700 hover:text-white rounded-sm text-lg flex justify-between items-center"
               >
