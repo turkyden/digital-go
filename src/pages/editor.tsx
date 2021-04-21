@@ -13,6 +13,7 @@ import {
   PicCenterOutlined,
   EnvironmentOutlined,
 } from '@ant-design/icons';
+import { Resizable, ResizableBox } from 'react-resizable';
 import Draggable from 'react-draggable';
 import { ThumbnailChart } from '@/components/Thumbnail/index';
 
@@ -43,8 +44,16 @@ export default function EditorPage() {
   // collapse siderMenu
   const onCollapse = () => setCollapsed(!collapsed);
 
-  //
+  // source panel visible
   const [visible, setVisible] = useState(false);
+
+  const [width, setWidth] = useState(1200);
+  const [height, setHeight] = useState(600);
+
+  const onResize = (event, { element, size, handle }) => {
+    setWidth(size.width);
+    setHeight(size.height);
+  };
   return (
     <Layout className="h-screen">
       <Sider
@@ -121,27 +130,29 @@ export default function EditorPage() {
           >
             <Draggable scale={scale / 100} handle=".handle">
               <div className="absolute top-12 left-12">
-                <div
-                  className="border border-solid border-gray-200 border-opacity-25 hover:border-blue-500"
-                  style={{
-                    backgroundImage:
-                      'url(https://digital.e-cology.com.cn/cloudstore/release/ca1c4c441fe24c1c97a54b8ff9257cd2/resources/bg.png)',
-                    backgroundSize: 'cover',
-                    backgroundRepeat: 'no-repeat',
-                    width: 1920,
-                    height: 1200,
-                    transform: `scale(${scale / 100})`,
-                  }}
-                >
+                <Resizable height={height} width={width} onResize={onResize}>
                   <div
-                    className="relative text-sm cursor-move | handle"
-                    style={{ top: '-1.75rem' }}
-                    onClick={() => setVisible(true)}
+                    className="border border-solid border-gray-200 border-opacity-25 hover:border-blue-500"
+                    style={{
+                      backgroundImage:
+                        'url(https://digital.e-cology.com.cn/cloudstore/release/ca1c4c441fe24c1c97a54b8ff9257cd2/resources/bg.png)',
+                      backgroundSize: 'cover',
+                      backgroundRepeat: 'no-repeat',
+                      width: width,
+                      height: height,
+                      transform: `scale(${scale / 100})`,
+                    }}
                   >
-                    同济大学图书馆数字大屏
+                    <div
+                      className="relative text-sm cursor-move | handle"
+                      style={{ top: '-1.75rem' }}
+                      onClick={() => setVisible(true)}
+                    >
+                      同济大学图书馆数字大屏
+                    </div>
+                    <Grid transformScale={scale / 100} />
                   </div>
-                  <Grid transformScale={scale / 100} />
-                </div>
+                </Resizable>
               </div>
             </Draggable>
           </div>
