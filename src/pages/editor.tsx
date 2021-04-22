@@ -9,15 +9,13 @@ import {
   AppstoreOutlined,
   EyeOutlined,
   PicRightOutlined,
-  PicLeftOutlined,
-  PicCenterOutlined,
   EnvironmentOutlined,
 } from '@ant-design/icons';
-import { Resizable, ResizableBox } from 'react-resizable';
+import { Resizable } from 'react-resizable';
 import Draggable from 'react-draggable';
 import { ThumbnailChart } from '@/components/Thumbnail/index';
 
-import Grid from '@/components/Grid';
+import Grid from '@/components/grid';
 
 import ReactRuler from '@/layouts/Ruler/index';
 import Scaler from '@/layouts/Scaler/index';
@@ -36,7 +34,7 @@ export default function EditorPage() {
   const onZoomUp = () => setScale(scale + 10);
   const onZoomDown = () => scale > 10 && setScale(scale - 10);
   const onReset = () => setScale(initalScale);
-  const onWheel = (event: WheelEvent) => {
+  const onWheel = (event: any) => {
     if (!event.ctrlKey) return;
     event.deltaY > 0 ? onZoomDown() : onZoomUp();
   };
@@ -45,7 +43,8 @@ export default function EditorPage() {
   const onCollapse = () => setCollapsed(!collapsed);
 
   // source panel visible
-  const [visible, setVisible] = useState(false);
+  const [optionsVisible, setOptionsVisible] = useState(false);
+  const [datasVisible, setDatasVisible] = useState(false);
 
   const [width, setWidth] = useState(1200);
   const [height, setHeight] = useState(600);
@@ -54,6 +53,7 @@ export default function EditorPage() {
     setWidth(size.width);
     setHeight(size.height);
   };
+
   return (
     <Layout className="h-screen">
       <Sider
@@ -121,16 +121,21 @@ export default function EditorPage() {
             </Tooltip>
           </div>
         </Header>
-        {/* <div>标尺</div> */}
         <Content className="relative overflow-hidden">
           <ReactRuler />
           <div
-            className="relative top-0 left-0 w-full h-full overflow-auto | handle"
+            className="relative top-0 left-0 w-full h-full overflow-auto"
             onWheel={onWheel}
           >
-            <Draggable scale={scale / 100} handle=".handle">
+            <Draggable scale={scale / 100} handle="#handle">
               <div className="absolute top-12 left-12">
-                <Resizable height={height} width={width} onResize={onResize}>
+                <Resizable
+                  className="absolute top-12 left-12"
+                  height={height}
+                  width={width}
+                  transformScale={scale / 100}
+                  onResize={onResize}
+                >
                   <div
                     className="border border-solid border-gray-200 border-opacity-25 hover:border-blue-500"
                     style={{
@@ -144,13 +149,17 @@ export default function EditorPage() {
                     }}
                   >
                     <div
-                      className="relative text-sm cursor-move | handle"
+                      id="handle"
+                      className="absolute text-sm cursor-move"
                       style={{ top: '-1.75rem' }}
-                      onClick={() => setVisible(true)}
                     >
                       同济大学图书馆数字大屏
                     </div>
-                    <Grid transformScale={scale / 100} />
+                    <Grid
+                      transformScale={scale / 100}
+                      onEditOptions={() => setOptionsVisible(true)}
+                      onEditDatas={() => setDatasVisible(true)}
+                    />
                   </div>
                 </Resizable>
               </div>
@@ -168,8 +177,8 @@ export default function EditorPage() {
             className="absolute"
             style={{ position: 'absolute' }}
             closable={true}
-            onClose={() => setVisible(false)}
-            visible={visible}
+            onClose={() => setOptionsVisible(false)}
+            visible={optionsVisible}
             getContainer={false}
           >
             <ol>
@@ -184,8 +193,8 @@ export default function EditorPage() {
             className="absolute"
             style={{ position: 'absolute' }}
             closable={true}
-            onClose={() => setVisible(false)}
-            visible={visible}
+            onClose={() => setDatasVisible(false)}
+            visible={datasVisible}
             getContainer={false}
           >
             <ol>

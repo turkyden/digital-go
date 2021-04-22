@@ -11,3 +11,7 @@
   border-right: 2px solid rgba(255, 255, 255, 0.4);
   border-bottom: 2px solid rgba(255, 255, 255, 0.4);
 }
+
+.dg_grid:hover .dg_grid_handle{
+  visibility: visible;
+}
