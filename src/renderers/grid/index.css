@@ -1,0 +1,17 @@
+.dg_grid_layout > .react-resizable-dragging{
+  cursor: grabbing;
+}
+
+.dg_grid_layout > .dg_grid_item > .react-resizable-handle::after{
+  border-right: 2px solid rgba(255, 255, 255, 0.4);
+  border-bottom: 2px solid rgba(255, 255, 255, 0.4);
+}
+
+.dg_grid_layout > .dg_grid_item{
+  background-color: rgba(255, 255, 255, 0.1);
+  cursor: grab;
+}
+
+.dg_grid_layout > .dg_grid_item:hover div{
+  visibility: visible;
+}

@@ -2,57 +2,53 @@ import React, { useState, useRef } from 'react';
 import _ from 'lodash';
 import { Tooltip } from 'antd';
 import { DatabaseOutlined, SettingOutlined } from '@ant-design/icons';
-import RGL, { WidthProvider } from 'react-grid-layout';
+import RGL, { WidthProvider, Layout } from 'react-grid-layout';
 import '../../../node_modules/react-grid-layout/css/styles.css';
 import '../../../node_modules/react-resizable/css/styles.css';
 import './index.css';
 
+import AreaChart from '@/materials/chart/AreaChart';
+
 const ReactGridLayout = WidthProvider(RGL);
 
-const generateLayout = (p) => {
-  return _.map(new Array(p.items), function (item, i) {
-    const y = _.result(p, 'y') || Math.ceil(Math.random() * 4) + 1;
-    return {
-      x: (i * 4) % 12,
-      y: Math.floor(i / 6) * y,
-      w: 4,
-      h: y,
-      i: i.toString(),
-    };
-  });
-};
+const layout: Layout[] = Array.from(new Array(2), (v, i) => {
+  const y = Math.ceil(Math.random() * 4) + 1;
+  return {
+    x: (i * 6) % 12,
+    y: Math.floor(i / 6) * y,
+    w: 6,
+    h: 14,
+    i: i.toString(),
+  };
+});
 
-const defaultProps = {
-  className: 'layout w-full',
-  items: 8,
-  rowHeight: 10,
-  onLayoutChange: (layout) => {},
-  cols: 24,
-  transformScale: 1,
-  isDroppable: true,
-  onClick: () => {},
-};
+export interface GridProps {
+  transformScale: number;
+  onEditOptions: (key: number) => void;
+  onEditDatas: (key: number) => void;
+}
 
-export default function Grid(props) {
-  const [layout, setLayout] = useState(generateLayout(defaultProps));
-
+const Grid: React.FunctionComponent<GridProps> = ({
+  transformScale,
+  onEditOptions,
+  onEditDatas,
+}) => {
   const generateDOM = () => {
-    const { onEditOptions, onEditDatas } = props;
-    return _.map(_.range(defaultProps.items), (i) => {
+    return Array.from(new Array(2), (v, k) => {
       return (
         <div
-          className="dg_grid | relative border border-solid border-transparent hover:border-blue-500"
-          key={i}
+          className="dg_grid_item | relative border border-solid border-transparent hover:border-blue-500"
+          key={k}
         >
           <div
-            className="dg_grid_handle | absolute w-full flex justify-end items-center text-xs invisible"
+            className="absolute w-full flex justify-end items-center text-xs invisible"
             style={{ top: '-1rem' }}
           >
             <div className="cursor-pointer">
               <Tooltip title="接入数据" placement="top">
                 <span
                   className="bg-blue-500 px-1 rounded-sm"
-                  onClick={() => onEditDatas(i)}
+                  onClick={() => onEditDatas(k)}
                 >
                   <DatabaseOutlined />
                 </span>
@@ -61,23 +57,25 @@ export default function Grid(props) {
               <Tooltip title="设置图表" placement="top">
                 <span
                   className="bg-blue-500 px-1 rounded-sm"
-                  onClick={() => onEditOptions(i)}
+                  onClick={() => onEditOptions(k)}
                 >
                   <SettingOutlined />
                 </span>
               </Tooltip>
             </div>
           </div>
-          <span className="text">{i}</span>
+          <div className="absolute w-full h-full p-4">
+            <AreaChart />
+          </div>
         </div>
       );
     });
   };
 
-  const onDrop = (layout, layoutItem, _event) => {
+  const onDrop = (layout: Layout[], item: Layout, e: Event) => {
     window.alert(
       `Dropped element props:\n${JSON.stringify(
-        layoutItem,
+        item,
         ['x', 'y', 'w', 'h'],
         2,
       )}`,
@@ -86,12 +84,17 @@ export default function Grid(props) {
 
   return (
     <ReactGridLayout
-      {...defaultProps}
+      className="dg_grid_layout"
+      rowHeight={10}
+      cols={24}
+      isDroppable={true}
       layout={layout}
       onDrop={onDrop}
-      {...props}
+      transformScale={transformScale}
     >
       {generateDOM()}
     </ReactGridLayout>
   );
-}
+};
+
+export default Grid;

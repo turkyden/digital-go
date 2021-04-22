@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import React, { useState } from 'react';
 import { Layout, Radio, Drawer, Tooltip } from 'antd';
 import {
   RollbackOutlined,
@@ -11,14 +11,14 @@ import {
   PicRightOutlined,
   EnvironmentOutlined,
 } from '@ant-design/icons';
-import { Resizable } from 'react-resizable';
+import { Resizable, ResizeCallbackData } from 'react-resizable';
 import Draggable from 'react-draggable';
-import { ThumbnailChart } from '@/components/Thumbnail/index';
+import { ThumbnailChart } from '@/components/thumbnail/index';
 
-import Grid from '@/components/grid';
+import Grid from '@/renderers/grid';
 
-import ReactRuler from '@/layouts/Ruler/index';
-import Scaler from '@/layouts/Scaler/index';
+import Ruler from '@/components/ruler';
+import Scaler from '@/components/scaler';
 
 import './editor.css';
 
@@ -46,13 +46,18 @@ export default function EditorPage() {
   const [optionsVisible, setOptionsVisible] = useState(false);
   const [datasVisible, setDatasVisible] = useState(false);
 
-  const [width, setWidth] = useState(1200);
-  const [height, setHeight] = useState(600);
+  const [width, setWidth] = useState(1366);
+  const [height, setHeight] = useState(768);
 
-  const onResize = (event, { element, size, handle }) => {
+  const onResize = (
+    event: React.SyntheticEvent,
+    { size }: ResizeCallbackData,
+  ) => {
     setWidth(size.width);
     setHeight(size.height);
   };
+
+  const [title, setTitle] = useState('同济大学图书馆数字大屏');
 
   return (
     <Layout className="h-screen">
@@ -63,7 +68,16 @@ export default function EditorPage() {
         width={200}
       >
         <Header className="text-center" style={{ padding: '0 24px' }}>
-          {!collapsed ? <h2>Digital Go</h2> : <h2>☄️ </h2>}
+          {!collapsed ? (
+            <h2
+              className="cursor-pointer"
+              onClick={() => (window.location.href = '/')}
+            >
+              Digital Go
+            </h2>
+          ) : (
+            <h2>☄️ </h2>
+          )}
         </Header>
         <div className="w-full flex">
           <div className="w-full text-xl text-center">
@@ -122,7 +136,7 @@ export default function EditorPage() {
           </div>
         </Header>
         <Content className="relative overflow-hidden">
-          <ReactRuler />
+          <Ruler />
           <div
             className="relative top-0 left-0 w-full h-full overflow-auto"
             onWheel={onWheel}
@@ -153,7 +167,7 @@ export default function EditorPage() {
                       className="absolute text-sm cursor-move"
                       style={{ top: '-1.75rem' }}
                     >
-                      同济大学图书馆数字大屏
+                      {title}
                     </div>
                     <Grid
                       transformScale={scale / 100}
