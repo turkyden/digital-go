@@ -1,5 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { Area } from '@ant-design/charts';
+import { Area, G2 } from '@ant-design/charts';
+import { deepMix } from '@antv/util';
+
+const theme = deepMix({}, G2.getTheme('dark'), {
+  background: 'transparent',
+});
 
 const AreaChart: React.FC = () => {
   const [data, setData] = useState([]);
@@ -24,6 +29,7 @@ const AreaChart: React.FC = () => {
     xField: 'Date',
     yField: 'scales',
     xAxis: { tickCount: 5 },
+    theme,
   };
 
   return <Area {...config} />;

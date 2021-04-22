@@ -11,6 +11,7 @@ export default defineConfig({
     { exact: true, path: '/', component: '@/pages/index' },
     { exact: true, path: '/editor', component: '@/pages/editor' },
     { exact: true, path: '/login', component: '@/pages/login' },
+    { exact: true, path: '/dashboard', component: '@/pages/dashboard' },
   ],
   fastRefresh: {},
 });
