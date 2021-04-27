@@ -5,8 +5,9 @@ import {
   MenuFoldOutlined,
   UserOutlined,
   VideoCameraOutlined,
-  UploadOutlined,
 } from '@ant-design/icons';
+import './index.css';
+import Template from './template';
 
 const { Header, Sider, Content } = Layout;
 
@@ -16,23 +17,29 @@ const Dashboard: React.FC = () => {
   const toggle = () => setCollapsed((preState) => !preState);
 
   return (
-    <Layout>
+    <Layout className="h-screen">
       <Sider trigger={null} collapsible collapsed={collapsed}>
-        <div className="logo" />
+        <div
+          className="cursor-pointer py-2 px-5 leading-9"
+          onClick={() => (window.location.href = './')}
+        >
+          {collapsed ? (
+            <h2 className="text-center">☄️ </h2>
+          ) : (
+            <h2 className="text-left">☄️ Digital Go</h2>
+          )}
+        </div>
         <Menu theme="dark" mode="inline" defaultSelectedKeys={['1']}>
           <Menu.Item key="1" icon={<UserOutlined />}>
-            nav 1
+            模板案例
           </Menu.Item>
           <Menu.Item key="2" icon={<VideoCameraOutlined />}>
-            nav 2
-          </Menu.Item>
-          <Menu.Item key="3" icon={<UploadOutlined />}>
-            nav 3
+            我的模板
           </Menu.Item>
         </Menu>
       </Sider>
-      <Layout className="site-layout">
-        <Header className="site-layout-background" style={{ padding: 0 }}>
+      <Layout>
+        <Header style={{ padding: 0 }}>
           {React.createElement(
             collapsed ? MenuUnfoldOutlined : MenuFoldOutlined,
             {
@@ -41,15 +48,8 @@ const Dashboard: React.FC = () => {
             },
           )}
         </Header>
-        <Content
-          className="site-layout-background"
-          style={{
-            margin: '24px 16px',
-            padding: 24,
-            minHeight: 280,
-          }}
-        >
-          Content
+        <Content className="">
+          <Template />
         </Content>
       </Layout>
     </Layout>
