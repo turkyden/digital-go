@@ -15,9 +15,9 @@ import { Resizable, ResizeCallbackData } from 'react-resizable';
 import Draggable from 'react-draggable';
 import Thumbnail from '../components/Thumbnail/index';
 import Scaler from '../components/Scaler/index';
-import Ruler from '../components/Ruler1/index';
+import Ruler from '../components/Ruler/index';
 
-import Grid from '../renderers/Grid/index';
+import Grid from '../renderers/Grid1/index';
 
 import './editor.css';
 
