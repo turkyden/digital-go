@@ -3,7 +3,7 @@ import styles from './Chart.less';
 
 const chartTypeList = Object.keys(Thumbnails);
 
-export default function () {
+export default function ThumbnailsChart() {
   const liItem = chartTypeList.map((item) => {
     const { id, name } = Thumbnails[item];
 

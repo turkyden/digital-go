@@ -13,9 +13,11 @@ import {
 } from '@ant-design/icons';
 import { Resizable, ResizeCallbackData } from 'react-resizable';
 import Draggable from 'react-draggable';
-import { ThumbnailChart, Scaler, Ruler } from '@/components';
+import Thumbnail from '@/components/Thumbnail';
+import Scaler from '@/components/Scaler';
+import Ruler from '@/components/Ruler';
 
-import Grid from '@/renderers/grid';
+import Grid from '@/renderers/Grid';
 
 import './editor.css';
 
@@ -96,7 +98,7 @@ export default function EditorPage() {
               className="overflow-auto bg-gray-400 bg-opacity-5"
               style={{ height: window.innerHeight - 112 }}
             >
-              <ThumbnailChart />
+              <Thumbnail />
             </div>
           )}
         </div>
