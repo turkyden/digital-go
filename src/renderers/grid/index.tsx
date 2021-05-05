@@ -40,27 +40,14 @@ const Grid: React.FunctionComponent<GridProps> = ({
           className="dg_grid_item | relative border border-solid border-transparent hover:border-blue-500"
           key={k}
         >
-          <div
-            className="absolute w-full flex justify-end items-center text-xs invisible"
-            style={{ top: '-1rem' }}
-          >
-            <div className="cursor-pointer">
+          <div className="absolute top-0 right-0 z-50 w-full flex justify-end items-center text-xs invisible">
+            <div className="cursor-pointer bg-blue-500 rounded-none rounded-bl-lg w-14 h-5 flex justify-center items-center">
               <Tooltip title="接入数据" placement="top">
-                <span
-                  className="bg-blue-500 px-1 rounded-sm"
-                  onClick={() => onEditDatas(k)}
-                >
-                  <DatabaseOutlined />
-                </span>
+                <DatabaseOutlined onClick={() => onEditDatas(k)} />
               </Tooltip>
               <span className="px-1"></span>
               <Tooltip title="设置图表" placement="top">
-                <span
-                  className="bg-blue-500 px-1 rounded-sm"
-                  onClick={() => onEditOptions(k)}
-                >
-                  <SettingOutlined />
-                </span>
+                <SettingOutlined onClick={() => onEditOptions(k)} />
               </Tooltip>
             </div>
           </div>

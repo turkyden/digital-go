@@ -19,4 +19,7 @@ export default defineConfig({
     },
   ],
   fastRefresh: {},
+  // resolve: {
+  //   includes: ['src/components']
+  // }
 });
