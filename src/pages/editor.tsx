@@ -17,7 +17,7 @@ import Thumbnail from '../components/Thumbnail/index';
 import Scaler from '../components/Scaler/index';
 import Ruler from '../components/Ruler/index';
 
-import Grid from '../renderers/Grid';
+import Grid from '../renderers/Grid/index';
 
 import './editor.css';
 
