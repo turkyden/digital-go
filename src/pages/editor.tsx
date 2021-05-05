@@ -13,9 +13,9 @@ import {
 } from '@ant-design/icons';
 import { Resizable, ResizeCallbackData } from 'react-resizable';
 import Draggable from 'react-draggable';
-import Thumbnail from '../components/Thumbnail';
-import Scaler from '../components/Scaler';
-import Ruler from '../components/Ruler';
+import Thumbnail from '../components/Thumbnail/index';
+import Scaler from '../components/Scaler/index';
+import Ruler from '../components/Ruler/index';
 
 import Grid from '../renderers/Grid';
 
