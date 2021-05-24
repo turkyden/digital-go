@@ -10,6 +10,7 @@ import {
   EyeOutlined,
   PicRightOutlined,
   EnvironmentOutlined,
+  MenuFoldOutlined,
 } from '@ant-design/icons';
 import { Resizable, ResizeCallbackData } from 'react-resizable';
 import Draggable from 'react-draggable';
@@ -60,12 +61,7 @@ export default function EditorPage() {
 
   return (
     <Layout className="h-screen">
-      <Sider
-        collapsible
-        collapsed={collapsed}
-        onCollapse={onCollapse}
-        width={200}
-      >
+      <Sider collapsible collapsed={collapsed} width={200}>
         <Header className="text-center" style={{ padding: '0 24px' }}>
           {!collapsed ? (
             <h2
@@ -80,6 +76,9 @@ export default function EditorPage() {
         </Header>
         <div className="w-full flex">
           <div className="w-full text-xl text-center">
+            <div className="p-2 cursor-pointer hover:text-blue-500">
+              <MenuFoldOutlined onClick={onCollapse} />
+            </div>
             <div className="p-2 cursor-pointer hover:text-blue-500">
               <BarChartOutlined />
             </div>

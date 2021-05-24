@@ -40,3 +40,7 @@ $ yarn start
   - 配置面板 option
   - 数据面板 data
   - 渲染器 renderer
+
+组件 props -> schema 
+
+https://x-render.gitee.io/tools/proptypes
