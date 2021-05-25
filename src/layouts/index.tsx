@@ -14,7 +14,7 @@ import Ruler from '../components/Ruler/index';
 
 import Grid from '../renderers/Grid/index';
 
-import './editor.css';
+import './index.css';
 
 const { Header, Content, Sider } = Layout;
 
