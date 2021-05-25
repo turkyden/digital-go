@@ -52,7 +52,7 @@ export default function EditorPage() {
 
   return (
     <Layout className="h-screen">
-      <Sider collapsible collapsed={collapsed} width={200}>
+      <Sider collapsible trigger={null} collapsed={collapsed} width={200}>
         <Header className="text-center" style={{ padding: '0 24px' }}>
           {!collapsed ? (
             <h2
@@ -86,7 +86,7 @@ export default function EditorPage() {
           {!collapsed && (
             <div
               className="overflow-auto bg-gray-400 bg-opacity-5"
-              style={{ height: window.innerHeight - 112 }}
+              style={{ height: window.innerHeight - 64 }}
             >
               <Thumbnail />
             </div>

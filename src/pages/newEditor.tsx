@@ -5,7 +5,6 @@ export const NewEditor: React.FC<{}> = () => {
   return (
     <div>
       <Layout />
-      new editor
     </div>
   );
 };
