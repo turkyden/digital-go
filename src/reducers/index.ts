@@ -1,7 +1,8 @@
 import React from 'react';
+import { v4 as uuidv4 } from 'uuid';
 
 export const initialState = {
-  current: 'adsaxaxax', // Current Element
+  active: 'adsaxaxax', // Current Element
   datas: [
     {
       componentName: 'AreaChart',
@@ -25,17 +26,17 @@ interface IItem {
   componentName: string;
   id: string;
   rect: {
-    x: numnber;
-    y: numnber;
-    w: numnber;
-    h: numnber;
+    x: number;
+    y: number;
+    w: number;
+    h: number;
     i: string;
   };
   props: any;
 }
 
 type IState = {
-  current: string;
+  active: string;
   datas: Array<IItem>;
 };
 
@@ -44,33 +45,50 @@ type IAction = {
   payload?: any;
 };
 
-type IContextProps = [
-  state: IState,
-  dispatch: ({ type }: { type: string }) => void,
-];
+type IContextProps = [state: IState, dispatch: ({ type }: IAction) => void];
 
 export const reducer = (state: IState, action: IAction) => {
   switch (action.type) {
     case 'ADD_ELEMENT':
-      const { x, y } = action.payload;
+      const uuid = uuidv4();
       return {
+        ...state,
         datas: state.datas.concat([
           {
             componentName: 'AreaChart',
-            id: 'kfkdokdsofdks',
+            id: uuid,
             rect: {
-              x: x,
-              y: y,
+              x: action.payload.x,
+              y: action.payload.y,
               w: 6,
               h: 8,
-              i: new Date().getTime().toString(),
+              i: uuid,
             },
             props: {
-              xField: 'Date',
+              xField: 'Date2',
               yField: 'scales',
             },
           },
         ]),
+      };
+    case 'DELETE_ELEMENT':
+      return {
+        ...state,
+        datas: state.datas.filter((v) => v.id !== action.payload.id),
+      };
+    case 'CLICK_ELEMENT':
+      return {
+        ...state,
+        active: action.payload.id,
+      };
+    case 'UPDATE_PROPS':
+      return {
+        ...state,
+        datas: state.datas.map((v) => {
+          return v.id === state.active
+            ? { ...v, props: action.payload.props }
+            : v;
+        }),
       };
     default:
       throw new Error();

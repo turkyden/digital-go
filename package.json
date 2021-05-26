@@ -28,6 +28,7 @@
     "@types/lodash": "^4.14.168",
     "@types/react-grid-layout": "^1.1.1",
     "@types/react-resizable": "^1.7.2",
+    "@types/uuid": "^8.3.0",
     "@umijs/preset-react": "1.x",
     "ahooks": "^2.10.1",
     "antd": "^4.15.1",
@@ -40,7 +41,8 @@
     "react-resizable": "^1.11.1",
     "ruler.js": "^1.0.1",
     "tailwindcss-classnames": "^2.1.0",
-    "umi": "^3.4.8"
+    "umi": "^3.4.8",
+    "uuid": "^8.3.2"
   },
   "devDependencies": {
     "@types/react": "^17.0.0",

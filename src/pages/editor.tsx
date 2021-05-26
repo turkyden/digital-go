@@ -14,7 +14,7 @@ export default function EditorPage() {
     <Context.Provider value={store}>
       <Layout>
         <ViewRenderer
-          transformScale={100}
+          transformScale={100 / 100}
           onEditOptions={() => setOptionsVisible(true)}
           onEditDatas={() => setDatasVisible(true)}
         />
