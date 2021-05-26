@@ -14,11 +14,12 @@ import {
 } from '@ant-design/icons';
 import { Resizable, ResizeCallbackData } from 'react-resizable';
 import Draggable from 'react-draggable';
-import Thumbnail from '../components/Thumbnail/index';
-import Scaler from '../components/Scaler/index';
-import Ruler from '../components/Ruler/index';
+import Thumbnail from '@/components/Thumbnail';
+import Scaler from '@/components/Scaler';
+import Ruler from '@/components/Ruler';
+import ViewRenderer from '@/renderers/ViewRenderer';
 
-import Grid from '../renderers/Grid/index';
+import FormRender from '@/renderers/FormRenderer';
 
 import './editor.css';
 
@@ -61,7 +62,7 @@ export default function EditorPage() {
 
   return (
     <Layout className="h-screen">
-      <Sider collapsible collapsed={collapsed} width={200}>
+      <Sider collapsible trigger={null} collapsed={collapsed} width={200}>
         <Header className="text-center" style={{ padding: '0 24px' }}>
           {!collapsed ? (
             <h2
@@ -95,7 +96,7 @@ export default function EditorPage() {
           {!collapsed && (
             <div
               className="overflow-auto bg-gray-400 bg-opacity-5"
-              style={{ height: window.innerHeight - 112 }}
+              style={{ height: window.innerHeight - 64 }}
             >
               <Thumbnail />
             </div>
@@ -167,7 +168,7 @@ export default function EditorPage() {
                     >
                       {title}
                     </div>
-                    <Grid
+                    <ViewRenderer
                       transformScale={scale / 100}
                       onEditOptions={() => setOptionsVisible(true)}
                       onEditDatas={() => setDatasVisible(true)}
@@ -197,6 +198,7 @@ export default function EditorPage() {
               <li>常用配置</li>
               <li>全部配置</li>
             </ol>
+            <FormRender />
           </Drawer>
           <Drawer
             title="数据源"

@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { Area, G2 } from '@ant-design/charts';
 import { deepMix } from '@antv/util';
 
+import schema from './schema';
+
 const theme = deepMix({}, G2.getTheme('dark'), {
   background: 'transparent',
 });

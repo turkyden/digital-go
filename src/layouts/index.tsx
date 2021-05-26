@@ -7,12 +7,7 @@ import {
   EnvironmentOutlined,
   MenuFoldOutlined,
 } from '@ant-design/icons';
-import { Resizable, ResizeCallbackData } from 'react-resizable';
 import Thumbnail from '../components/Thumbnail/index';
-import Scaler from '../components/Scaler/index';
-import Ruler from '../components/Ruler/index';
-
-import Grid from '../renderers/Grid/index';
 
 import './index.css';
 
@@ -24,31 +19,9 @@ export default function EditorPage() {
   // resize the viewport
   const initalScale = 100;
   const [scale, setScale] = useState(initalScale);
-  const onZoomUp = () => setScale(scale + 10);
-  const onZoomDown = () => scale > 10 && setScale(scale - 10);
-  const onReset = () => setScale(initalScale);
-  const onWheel = (event: any) => {
-    if (!event.ctrlKey) return;
-    event.deltaY > 0 ? onZoomDown() : onZoomUp();
-  };
 
   // collapse siderMenu
   const onCollapse = () => setCollapsed(!collapsed);
-
-  // source panel visible
-  const [optionsVisible, setOptionsVisible] = useState(false);
-  const [datasVisible, setDatasVisible] = useState(false);
-
-  const [width, setWidth] = useState(1366);
-  const [height, setHeight] = useState(768);
-
-  const onResize = (
-    event: React.SyntheticEvent,
-    { size }: ResizeCallbackData,
-  ) => {
-    setWidth(size.width);
-    setHeight(size.height);
-  };
 
   return (
     <Layout className="h-screen">
