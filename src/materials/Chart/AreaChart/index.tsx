@@ -8,7 +8,15 @@ const theme = deepMix({}, G2.getTheme('dark'), {
   background: 'transparent',
 });
 
-const AreaChart: React.FC = () => {
+interface AreaChartProps {
+  xField?: string;
+  yField?: string;
+}
+
+const AreaChart: React.FC<AreaChartProps> = ({
+  xField = 'Date',
+  yField = 'scales',
+}) => {
   const [data, setData] = useState([]);
 
   useEffect(() => {
@@ -28,8 +36,8 @@ const AreaChart: React.FC = () => {
 
   const config = {
     data: data,
-    xField: 'Date',
-    yField: 'scales',
+    xField,
+    yField,
     xAxis: { tickCount: 5 },
     theme,
   };
