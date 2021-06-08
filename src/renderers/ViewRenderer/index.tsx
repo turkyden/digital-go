@@ -3,7 +3,7 @@ import { Tooltip } from 'antd';
 import { CopyOutlined, DeleteOutlined } from '@ant-design/icons';
 import RGL, { WidthProvider, Layout } from 'react-grid-layout';
 import Context from '@/reducers';
-import AreaChart from '@/materials/Chart/AreaChart';
+import { dynamic } from 'umi';
 
 import '../../../node_modules/react-grid-layout/css/styles.css';
 import '../../../node_modules/react-resizable/css/styles.css';
@@ -54,7 +54,18 @@ const ViewRenderer: React.FunctionComponent<ViewRendererProps> = ({
             </div>
           </div>
           <div className="absolute w-full h-full p-4">
-            <AreaChart {...v.props} />
+            {React.createElement(
+              dynamic({
+                loader: async function () {
+                  // 这里的注释 webpackChunkName 可以指导 webpack 将该组件 HugeA 以这个名字单独拆出去
+                  const { [v.componentName]: AsyncComponent } = await import(
+                    /* webpackChunkName: "external_A" */ `../../materials/chart`
+                  );
+                  return AsyncComponent;
+                },
+              }),
+              v.props,
+            )}
           </div>
         </div>
       );

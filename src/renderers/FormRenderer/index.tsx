@@ -1,6 +1,6 @@
 import React, { useContext, useCallback } from 'react';
 import FormRender, { useForm } from 'form-render';
-import schema from '@/materials/chart/AreaChart/schema';
+import schema from '@/materials/chart/Area/schema';
 import Context from '@/reducers';
 
 const FormRenderer: React.FC<{}> = () => {

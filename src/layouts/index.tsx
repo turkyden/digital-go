@@ -11,6 +11,8 @@ import {
   PicRightOutlined,
   EnvironmentOutlined,
   MenuFoldOutlined,
+  CodeOutlined,
+  QuestionCircleOutlined,
 } from '@ant-design/icons';
 import Thumbnail from '@/components/Thumbnail';
 import Ruler from '@/components/Ruler';
@@ -35,6 +37,8 @@ const LayoutPage: React.FC<LayoutPageProps> = ({ children }) => {
   const [optionsVisible, setOptionsVisible] = useState(true);
   const [datasVisible, setDatasVisible] = useState(false);
 
+  const [schemaVisible, setSchemaVisible] = useState(false);
+
   return (
     <Layout className="h-screen">
       <Sider collapsible trigger={null} collapsed={collapsed} width={200}>
@@ -50,29 +54,47 @@ const LayoutPage: React.FC<LayoutPageProps> = ({ children }) => {
             <h2>☄️ </h2>
           )}
         </Header>
-        <div className="w-full flex">
-          <div className="w-full text-xl text-center">
-            <div className="p-2 cursor-pointer hover:text-blue-500">
-              <MenuFoldOutlined onClick={onCollapse} />
+        <div className="absolute top-16 w-full h-full flex">
+          <div className="w-full h-full flex flex-col justify-between items-center text-xl text-center">
+            <div className="">
+              <div className="p-2 cursor-pointer hover:text-blue-500">
+                <MenuFoldOutlined onClick={onCollapse} />
+              </div>
+              <div className="p-2 cursor-pointer hover:text-blue-500">
+                <BarChartOutlined />
+              </div>
+              <div className="p-2 cursor-pointer hover:text-blue-500">
+                <EnvironmentOutlined />
+              </div>
+              <div className="p-2 cursor-pointer hover:text-blue-500">
+                <FontSizeOutlined />
+              </div>
+              <div className="p-2 cursor-pointer hover:text-blue-500">
+                <AppstoreOutlined />
+              </div>
             </div>
-            <div className="p-2 cursor-pointer hover:text-blue-500">
-              <BarChartOutlined />
-            </div>
-            <div className="p-2 cursor-pointer hover:text-blue-500">
-              <EnvironmentOutlined />
-            </div>
-            <div className="p-2 cursor-pointer hover:text-blue-500">
-              <FontSizeOutlined />
-            </div>
-            <div className="p-2 cursor-pointer hover:text-blue-500">
-              <AppstoreOutlined />
+            <div>
+              <Tooltip
+                className="p-2 cursor-pointer hover:text-blue-500"
+                title="Schema 源码开发"
+                placement="right"
+              >
+                <CodeOutlined
+                  className="cursor-pointer hover:text-blue-500"
+                  onClick={() => setSchemaVisible(true)}
+                />
+              </Tooltip>
+              <Tooltip
+                className="p-2 cursor-pointer hover:text-blue-500"
+                title="帮助"
+                placement="right"
+              >
+                <QuestionCircleOutlined className="cursor-pointer hover:text-blue-500" />
+              </Tooltip>
             </div>
           </div>
           {!collapsed && (
-            <div
-              className="overflow-auto bg-gray-400 bg-opacity-5"
-              style={{ height: window.innerHeight - 64 }}
-            >
+            <div className="overflow-auto bg-gray-400 bg-opacity-5">
               <Thumbnail />
             </div>
           )}
@@ -141,6 +163,18 @@ const LayoutPage: React.FC<LayoutPageProps> = ({ children }) => {
               <li>本地数据，支持 .csx、.excel、.json 格式</li>
               <li>实时数据，serverless 云函数</li>
             </ol>
+          </Drawer>
+          <Drawer
+            title="Schema 源码开发"
+            placement="left"
+            visible={schemaVisible}
+            onClose={() => setSchemaVisible(false)}
+            key="left"
+            width="600"
+          >
+            <p>Some contents...</p>
+            <p>Some contents...</p>
+            <p>Some contents...</p>
           </Drawer>
         </Content>
       </Layout>

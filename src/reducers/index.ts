@@ -5,7 +5,8 @@ export const initialState = {
   active: 'adsaxaxax', // Current Element
   datas: [
     {
-      componentName: 'AreaChart',
+      componentName: 'Area',
+      category: 'chart',
       id: 'adsaxaxax',
       rect: {
         x: 0,
@@ -55,7 +56,8 @@ export const reducer = (state: IState, action: IAction) => {
         ...state,
         datas: state.datas.concat([
           {
-            componentName: 'AreaChart',
+            componentName: 'Pie',
+            category: 'chart',
             id: uuid,
             rect: {
               x: action.payload.x,
@@ -64,10 +66,7 @@ export const reducer = (state: IState, action: IAction) => {
               h: 8,
               i: uuid,
             },
-            props: {
-              xField: 'Date2',
-              yField: 'scales',
-            },
+            props: {},
           },
         ]),
       };

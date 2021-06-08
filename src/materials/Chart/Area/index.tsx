@@ -2,18 +2,16 @@ import React, { useState, useEffect } from 'react';
 import { Area, G2 } from '@ant-design/charts';
 import { deepMix } from '@antv/util';
 
-import schema from './schema';
-
 const theme = deepMix({}, G2.getTheme('dark'), {
   background: 'transparent',
 });
 
-interface AreaChartProps {
+export interface AreaProps {
   xField?: string;
   yField?: string;
 }
 
-const AreaChart: React.FC<AreaChartProps> = ({
+const ArraChart: React.FC<AreaProps> = ({
   xField = 'Date',
   yField = 'scales',
 }) => {
@@ -45,4 +43,4 @@ const AreaChart: React.FC<AreaChartProps> = ({
   return <Area {...config} />;
 };
 
-export default AreaChart;
+export default ArraChart;
